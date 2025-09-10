@@ -1,0 +1,24 @@
+name: Java CI
+
+on: [push] # 指定触发工作流的事件，例如每次 push 代码时
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 指定运行环境
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # 检出你的代码
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17' # 根据你的项目需求指定 JDK 版本
+          distribution: 'temurin'
+
+      - name: Build with Maven (if you use Maven)
+        run: mvn -B compile --file pom.xml # 如果有 pom.xml 文件
+
+      # 或者如果你不使用 Maven/Gradle，只是编译单个 java 文件
+      - name: Compile Java file
+        run: javac -cp . src/path/to/your/DecoratedPotBlockEntityMixin.java # 根据你的实际路径修改
